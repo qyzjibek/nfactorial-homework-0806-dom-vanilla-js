@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Document</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white py-3 shadow-sm">
+        <div class="container-fluid">
+            <a class="navbar-brand mb-0 h1" href="#">Places</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          <div id="navbarSupportedContent" class="collapse navbar-collapse">
+            <ul class="navbar-nav ml-auto">
+              <li id="video-title" class="nav-item active"><a href="#" class="nav-link" onclick="setMusic()">Summer <span class="sr-only"></span></a></li>
+              <li class="nav-item"><a href="#" class="nav-link" onclick="muteAudio()" id="music-control">Mute</a></li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Change Video
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="#" onclick="leftVideo()">Left</a></li>
+                  <li><a class="dropdown-item" href="#" onclick="rightVideo()">Right</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="#" onclick="pausePlayVideo()">Stop</a></li>
+                </ul>
+              </li>
+            </ul>
+            <div class="nav navbar-text progress" style="width: 300px; margin-top:10px; margin-left: 100px;">
+                <div class="bar" style="width: 30%;" ></div>
+            </div>
+            <p id="video-progress" class="nav navbar-text pull-right">0%</p>
+          </div>
+        </div>
+      </nav>
+
+     <!-- Video -->
+      <div class="video-background-holder">
+        <div class="video-background-overlay"></div>
+        <video id="main-video" playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
+              <source src="https://assets.mixkit.co/videos/preview/mixkit-clouds-and-blue-sky-2408-large.mp4" type="video/mp4">
+          </video>
+        <div class="video-background-content container h-100">
+          <div class="d-flex h-100 text-center align-items-center">
+            <div class="w-100 text-white">
+              <h1 class="display-4">Bootstrap video background</h1>
+              <p class="lead mb-0">With HTML5 Video and Bootstrap 4</p>
+              <p class="lead">Snippet by <a href="https://bootstrapious.com/snippets" class="text-white">
+                          <u>Bootstrapious</u></a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Text -->
+      <section class="py-2">
+        <div class="container py-2">
+          <div class="row">
+            <div class="col-lg-8 mx-auto">
+              <p class="lead" style="font-weight: bold; font-size: 30px; text-align: center;">Quotes from "To Kill a Mockingbird" by Harper Lee </p>
+              <p class="lead">“People generally see what they look for, and hear what they listen for.”</p>
+              <p class="lead">“I wanted you to see what real courage is, instead of getting the idea that courage is a man with a gun in his hand. It's when you know you're licked before you begin, but you begin anyway and see it through no matter what.”</p>
+              <p class="lead">“Sometimes the Bible in the hand of one man is worse than a whisky bottle in the hand of (another)... There are just some kind of men who - who're so busy worrying about the next world they've never learned to live in this one, and you can look down the street and see the results.”</p>
+              <p class="lead">“Things are always better in the morning.”</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Audio -->
+      <audio autoplay
+        src="./assets/stay.mp3" id="music">
+            Your browser does not support the
+            <code>audio</code> element.
+      </audio>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+</body>
+<script>
+    const audio = document.getElementById('music');
+    const btn = document.getElementById('music-control');
+    const videoLinks =["https://assets.mixkit.co/videos/preview/mixkit-clouds-and-blue-sky-2408-large.mp4", "https://assets.mixkit.co/videos/preview/mixkit-bay-landscape-aerial-shot-1940-large.mp4", "https://assets.mixkit.co/videos/preview/mixkit-white-sand-beach-and-palm-trees-1564-large.mp4", "https://storage.coverr.co/videos/Nv4Gqow7scn9XalkdfhPSLNjwNWrYYpE?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBJZCI6Ijg3NjdFMzIzRjlGQzEzN0E4QTAyIiwiaWF0IjoxNjMzMzkzNjUzfQ.EElJb38kbaq_0OTzJpPnInZjpR8pLDoxwLGskhuoBBc", "https://assets.mixkit.co/videos/preview/mixkit-huge-trees-in-a-large-green-forest-5040-large.mp4"];
+    const videoTitles = ["Cloud and Sky", "Landscape", "White Sand Beach", "Happiness", "Green Forest"]
+
+    const button = document.getElementById("change-button");
+    const video = document.getElementById("main-video");
+    const videoTitle = document.getElementById("video-title");
+    let i = 2;
+
+    function leftVideo() {
+        if(i - 1 >= 0 ) {
+            i -= 1;
+            video.setAttribute('src', videoLinks[i]);
+            videoTitle.innerHTML = `<a href="#" class="nav-link">${videoTitles[i]}<span class="sr-only"></span></a>`;
+        }
+    }
+
+    function rightVideo() {
+        if(i + 1 < 5 ) {
+            i += 1;
+            video.setAttribute('src', videoLinks[i]);
+            videoTitle.innerHTML = `<a href="#" class="nav-link">${videoTitles[i]}<span class="sr-only"></span></a>`;
+        }
+    }
+
+    function pausePlayVideo() {
+        if(video.paused) {
+            video.play();
+        } else {
+            video.pause();
+        }
+    }
+
+    function setMusic() {
+        audio.setAttribute('src', "./assets/birds.wav");
+    }
+
+    function muteAudio() {
+        audio.pause();
+        console.log(btn.text);
+    }
+
+    const progressBar = document.getElementById( "video-progress" );
+    const progress = document.getElementsByClassName('progress');
+
+      function progressLoop() {
+        setInterval(function () {
+            let pcg =  Math.round((video.currentTime / video.duration) * 100);
+            progressBar.innerHTML = pcg + "%";
+            progress.item(0).setAttribute('aria-valuenow',pcg);
+            progress.item(0).setAttribute('style','width:' + Number(pcg)+'%');
+      });
+
+      video.addEventListener("play", progressLoop);
+      }
+
+      progressLoop();
+</script>
+</html>
